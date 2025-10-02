@@ -1,0 +1,2281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oxycure Technologies - Advanced Medical Solutions</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        @font-face {
+            font-family: 'Outfit';
+            src: url('font/Outfit-VariableFont_wght.ttf') format('truetype');
+            font-weight: 100 900;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --orange: #FF6B35;
+            --blue: #0066FF;
+            --blue-light: #4D94FF;
+            --blue-dark: #0047B3;
+            --black: #0A0E1A;
+            --black-light: #1A1F2E;
+            --white: #FFFFFF;
+            --gray-50: #F9FAFB;
+            --gray-100: #F3F4F6;
+            --gray-200: #E5E7EB;
+            --gray-300: #D1D5DB;
+            --gray-700: #374151;
+            --gray-800: #1F2937;
+            --gray-900: #111827;
+        }
+
+        body {
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            background: var(--white);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        nav.scrolled {
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.25rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo span {
+            background: linear-gradient(135deg, var(--blue-light), var(--orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.9375rem;
+            font-weight: 500;
+            transition: color 0.2s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--blue-light);
+        }
+
+        .nav-cta {
+            padding: 0.625rem 1.5rem;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9375rem;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nav-cta:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-1px);
+        }
+
+        /* Hero Section - White with Video BG */
+        .hero {
+            background: linear-gradient(135deg, #F8FAFC 0%, #E8F4F8 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-video-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .hero-video-bg video {
+            width: 100vw;
+            height: 100%;
+            object-fit: cover;
+            opacity: 1;
+        }
+
+        .hero-video-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.7) 100%);
+            pointer-events: none;
+        }
+
+        .hero-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content h1 {
+            font-size: 5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+            color: white;
+            margin-bottom: 2rem;
+        }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, var(--blue-light) 0%, var(--orange) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-description {
+            font-size: 1.25rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 3rem;
+            max-width: 720px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            padding: 1rem 2rem;
+            background: var(--blue);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            background: var(--blue-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(0, 102, 255, 0.3);
+        }
+
+        .btn-secondary {
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: white;
+            border: 1.5px solid rgba(255, 255, 255, 0.4);
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .visual-card {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 24px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.12);
+            display: none;
+        }
+
+        .visual-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .floating-badge {
+            position: absolute;
+            bottom: 2rem;
+            left: 2rem;
+            right: 2rem;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 1.5rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+        }
+
+        .floating-badge h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--black);
+            margin-bottom: 0.25rem;
+        }
+
+        .floating-badge p {
+            font-size: 0.875rem;
+            color: var(--gray-700);
+        }
+
+        /* Stats Section - Deep Ocean Feel */
+        .stats-section {
+            background: linear-gradient(180deg, #0A1628 0%, #051020 100%);
+            padding: 6rem 2rem;
+            position: relative;
+            border-radius: 0 0 50% 50% / 0 0 4% 4%;
+            margin-bottom: 4rem;
+        }
+
+        .stats-section::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 102, 255, 0.3), transparent 70%);
+            top: 10%;
+            right: 10%;
+            filter: blur(60px);
+        }
+
+        .stats-section::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 107, 53, 0.2), transparent 70%);
+            bottom: 10%;
+            left: 5%;
+            filter: blur(80px);
+        }
+
+        .stats-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 4rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Floating Bubbles decoration */
+        .stats-section .bubble-decoration {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2), rgba(77, 148, 255, 0.1));
+            pointer-events: none;
+        }
+
+        .stats-section .bubble-1 {
+            width: 80px;
+            height: 80px;
+            top: 15%;
+            left: 15%;
+            opacity: 0.4;
+        }
+
+        .stats-section .bubble-2 {
+            width: 120px;
+            height: 120px;
+            top: 60%;
+            right: 20%;
+            opacity: 0.3;
+        }
+
+        .stats-section .bubble-3 {
+            width: 60px;
+            height: 60px;
+            bottom: 20%;
+            left: 40%;
+            opacity: 0.5;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--blue-light), var(--orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+            margin-bottom: 0.75rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 500;
+        }
+
+        /* About Section - Curved top */
+        .about-section {
+            background: linear-gradient(180deg, #FFFFFF 0%, #F0F9FF 100%);
+            padding: 10rem 2rem;
+            position: relative;
+            border-radius: 50% 50% 0 0 / 4% 4% 0 0;
+            margin-top: -4rem;
+            padding-top: 12rem;
+        }
+
+        .about-section::before {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 2px solid rgba(0, 102, 255, 0.1);
+            top: 5%;
+            right: 5%;
+        }
+
+        .about-section::after {
+            content: '';
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 107, 53, 0.1);
+            bottom: 10%;
+            left: 8%;
+        }
+
+        .about-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            perspective: 2500px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0;
+            min-height: 650px;
+        }
+
+        /* Book wrapper */
+        .book-wrapper {
+            display: flex;
+            position: relative;
+            transform-style: preserve-3d;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        /* Book spine with ring bindings */
+        .book-spine {
+            width: 80px;
+            background: transparent;
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            padding: 3rem 0;
+        }
+
+        /* Individual C-shaped ring binding */
+        .ring-bind {
+            width: 45px;
+            height: 60px;
+            position: relative;
+            transform: translateZ(35px);
+            transition: transform 0.3s ease;
+        }
+
+        /* The C-ring itself */
+        .ring-bind::before {
+            content: '';
+            position: absolute;
+            width: 45px;
+            height: 60px;
+            border-radius: 25px;
+            background:
+                linear-gradient(135deg,
+                    rgba(255, 255, 255, 0.5) 0%,
+                    rgba(77, 148, 255, 0.2) 50%,
+                    rgba(0, 102, 255, 0.3) 100%);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 4px solid rgba(77, 148, 255, 0.4);
+            border-right: none;
+            box-shadow:
+                -3px 0 15px rgba(0, 102, 255, 0.4),
+                inset -3px -3px 10px rgba(255, 255, 255, 0.5),
+                inset 3px 3px 10px rgba(0, 102, 255, 0.2),
+                0 0 25px rgba(77, 148, 255, 0.3);
+            clip-path: polygon(0 0, 70% 0, 70% 100%, 0 100%);
+        }
+
+        /* Inner highlight for glassy effect */
+        .ring-bind::after {
+            content: '';
+            position: absolute;
+            left: 3px;
+            top: 8px;
+            width: 15px;
+            height: 25px;
+            border-radius: 12px 0 0 12px;
+            background:
+                linear-gradient(135deg,
+                    rgba(255, 255, 255, 0.7),
+                    transparent 60%);
+            pointer-events: none;
+        }
+
+        .ring-bind:hover {
+            transform: translateZ(45px) scale(1.05);
+        }
+
+        /* Cylindrical bar connecting the rings */
+        .book-spine::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%) translateZ(20px);
+            width: 15px;
+            height: 85%;
+            background:
+                linear-gradient(to right,
+                    rgba(200, 210, 230, 0.6),
+                    rgba(220, 230, 245, 0.8),
+                    rgba(200, 210, 230, 0.6));
+            border-radius: 8px;
+            box-shadow:
+                inset -2px 0 8px rgba(0, 102, 255, 0.3),
+                inset 2px 0 8px rgba(255, 255, 255, 0.4),
+                0 0 20px rgba(0, 102, 255, 0.2);
+            border: 2px solid rgba(150, 170, 200, 0.4);
+        }
+
+        /* Left page (text content) - Wider with ring holes */
+        .book-page-left {
+            flex: 1;
+            transform-origin: right center;
+            transform-style: preserve-3d;
+            position: relative;
+            border-radius: 8px 0 0 8px;
+            box-shadow:
+                -15px 0 40px rgba(0, 0, 0, 0.15),
+                inset -8px 0 20px rgba(255, 255, 255, 0.4);
+        }
+
+        .book-page-left::before {
+            content: '';
+            position: absolute;
+            right: -2px;
+            top: 0;
+            bottom: 0;
+            width: 6px;
+            background:
+                repeating-linear-gradient(
+                    to bottom,
+                    transparent 0px,
+                    transparent 60px,
+                    rgba(0, 102, 255, 0.1) 60px,
+                    rgba(0, 102, 255, 0.1) 120px
+                );
+            z-index: 1;
+        }
+
+        /* Right page (image content) - Wider with ring holes */
+        .book-page-right {
+            flex: 1;
+            transform-origin: left center;
+            transform-style: preserve-3d;
+            position: relative;
+            border-radius: 0 8px 8px 0;
+            box-shadow:
+                15px 0 40px rgba(0, 0, 0, 0.15),
+                inset 8px 0 20px rgba(255, 255, 255, 0.4);
+        }
+
+        .book-page-right::before {
+            content: '';
+            position: absolute;
+            left: -2px;
+            top: 0;
+            bottom: 0;
+            width: 6px;
+            background:
+                repeating-linear-gradient(
+                    to bottom,
+                    transparent 0px,
+                    transparent 60px,
+                    rgba(0, 102, 255, 0.1) 60px,
+                    rgba(0, 102, 255, 0.1) 120px
+                );
+            z-index: 1;
+        }
+
+        .section-label {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: var(--gray-100);
+            color: var(--blue);
+            font-size: 0.875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-radius: 6px;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-content {
+            background:
+                linear-gradient(to right,
+                    rgba(255, 255, 255, 0.95) 0%,
+                    rgba(248, 250, 252, 0.92) 95%,
+                    rgba(230, 235, 245, 0.85) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 8px 0 0 8px;
+            padding: 4rem;
+            border: 3px solid rgba(200, 210, 230, 0.6);
+            border-right: 1px solid rgba(0, 102, 255, 0.15);
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+            box-shadow:
+                inset 0 0 60px rgba(255, 255, 255, 0.4),
+                inset 3px 0 10px rgba(240, 245, 255, 0.5);
+        }
+
+        .about-content::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(0, 102, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 107, 53, 0.08) 0%, transparent 50%);
+            animation: wave-move 15s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        .about-content::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.03) 0px, rgba(255, 255, 255, 0.03) 2px, transparent 2px, transparent 8px),
+                repeating-linear-gradient(-45deg, rgba(0, 102, 255, 0.02) 0px, rgba(0, 102, 255, 0.02) 2px, transparent 2px, transparent 8px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .about-content > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .about-content h2 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            color: var(--black);
+            margin-bottom: 2rem;
+        }
+
+        .about-content p {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            color: var(--gray-700);
+            margin-bottom: 1.5rem;
+        }
+
+        .about-visual {
+            position: relative;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background:
+                linear-gradient(to left,
+                    rgba(255, 255, 255, 0.95) 0%,
+                    rgba(248, 250, 252, 0.92) 95%,
+                    rgba(230, 235, 245, 0.85) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 0 8px 8px 0;
+            padding: 4rem;
+            border: 3px solid rgba(200, 210, 230, 0.6);
+            border-left: 1px solid rgba(0, 102, 255, 0.15);
+            box-shadow:
+                inset 0 0 60px rgba(255, 255, 255, 0.4),
+                inset -3px 0 10px rgba(240, 245, 255, 0.5);
+        }
+
+        .about-image-circle {
+            width: 100%;
+            max-width: 450px;
+            height: 550px;
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            box-shadow:
+                0 20px 60px rgba(0, 102, 255, 0.2),
+                0 0 0 1px rgba(77, 148, 255, 0.3);
+            transition: transform 0.4s ease;
+        }
+
+        .about-image-circle:hover {
+            transform: translateY(-5px);
+        }
+
+        .about-image-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .about-image-circle::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Floating bubbles decoration */
+        .bubble-float {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(77, 148, 255, 0.15), rgba(0, 102, 255, 0.05));
+            border: 2px solid rgba(77, 148, 255, 0.2);
+            pointer-events: none;
+            animation: float-bubble 8s ease-in-out infinite;
+        }
+
+        .bubble-float-1 {
+            width: 80px;
+            height: 80px;
+            top: 10%;
+            right: -5%;
+            animation-delay: 0s;
+        }
+
+        .bubble-float-2 {
+            width: 120px;
+            height: 120px;
+            bottom: 15%;
+            left: -8%;
+            animation-delay: 2s;
+        }
+
+        .bubble-float-3 {
+            width: 60px;
+            height: 60px;
+            top: 50%;
+            right: -3%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float-bubble {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+                opacity: 0.6;
+            }
+            50% {
+                transform: translateY(-20px) scale(1.1);
+                opacity: 0.8;
+            }
+        }
+
+        @keyframes wave-move {
+            0%, 100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            33% {
+                transform: translate(5%, 5%) rotate(5deg);
+            }
+            66% {
+                transform: translate(-5%, 5%) rotate(-5deg);
+            }
+        }
+
+        /* Services Section - Dark Background */
+        .services-section {
+            background: linear-gradient(135deg, #0A1628 0%, #0D1B2A 50%, #051020 100%);
+            padding: 8rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            margin-top: 4rem;
+        }
+
+        .services-section::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 102, 255, 0.3), transparent 70%);
+            top: 10%;
+            right: 5%;
+            filter: blur(100px);
+            pointer-events: none;
+        }
+
+        .services-section::after {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 107, 53, 0.2), transparent 70%);
+            bottom: 10%;
+            left: 5%;
+            filter: blur(100px);
+            pointer-events: none;
+        }
+
+        .services-header {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto 6rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .services-header .section-label {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--blue-light);
+        }
+
+        .services-header h2 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            color: white;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 1.5rem;
+        }
+
+        .services-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 4px;
+            background: linear-gradient(90deg,
+                transparent 0%,
+                var(--blue-light) 25%,
+                var(--orange) 50%,
+                var(--blue-light) 75%,
+                transparent 100%);
+            border-radius: 2px;
+            animation: led-flow 3s ease-in-out infinite;
+        }
+
+        @keyframes led-flow {
+            0%, 100% {
+                opacity: 0.7;
+                box-shadow: 0 0 20px rgba(77, 148, 255, 0.6), 0 0 30px rgba(77, 148, 255, 0.4);
+            }
+            50% {
+                opacity: 1;
+                box-shadow: 0 0 35px rgba(77, 148, 255, 1), 0 0 50px rgba(255, 107, 53, 0.8), 0 0 65px rgba(77, 148, 255, 0.6);
+            }
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, var(--blue-light) 0%, var(--orange) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .services-header p {
+            font-size: 1.125rem;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.8;
+        }
+
+        .services-header .section-label {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Individual Service Items */
+        .service-item {
+            position: relative;
+            padding: 3rem;
+            border-radius: 24px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 500px;
+        }
+
+        .service-item:hover {
+            transform: translateY(-4px);
+            box-shadow:
+                0 20px 50px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        /* Bento Grid Sizes */
+        .service-item:nth-child(1) {
+            grid-column: span 4;
+        }
+
+        .service-item:nth-child(2) {
+            grid-column: span 4;
+        }
+
+        .service-item:nth-child(3) {
+            grid-column: span 4;
+        }
+
+        .service-item:nth-child(4) {
+            grid-column: span 12;
+            min-height: 600px;
+        }
+
+        .service-image-wrapper {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+
+        .service-image-wrapper::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg,
+                rgba(0, 0, 0, 0.5) 0%,
+                rgba(0, 0, 0, 0.7) 100%);
+            z-index: 1;
+        }
+
+        /* Darker inset for first three cards */
+        .service-item:nth-child(1) .service-image-wrapper::before,
+        .service-item:nth-child(2) .service-image-wrapper::before,
+        .service-item:nth-child(3) .service-image-wrapper::before {
+            background: linear-gradient(180deg,
+                rgba(0, 0, 0, 0.7) 0%,
+                rgba(0, 0, 0, 0.85) 100%);
+        }
+
+        .service-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .service-icon {
+            display: none;
+        }
+
+        /* Add floating bubbles to service images */
+        .service-image-wrapper .bubble-float {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2), rgba(77, 148, 255, 0.08));
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            pointer-events: none;
+            animation: float-bubble 8s ease-in-out infinite;
+        }
+
+        .service-image-wrapper .bubble-s-1 {
+            width: 70px;
+            height: 70px;
+            top: 5%;
+            left: -5%;
+            animation-delay: 0s;
+        }
+
+        .service-image-wrapper .bubble-s-2 {
+            width: 100px;
+            height: 100px;
+            bottom: 10%;
+            right: -6%;
+            animation-delay: 2.5s;
+        }
+
+        .service-image-wrapper .bubble-s-3 {
+            width: 50px;
+            height: 50px;
+            top: 45%;
+            left: -3%;
+            animation-delay: 5s;
+        }
+
+        .service-circle-image {
+            width: 100%;
+            max-width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            overflow: hidden;
+            position: relative;
+            margin: 0 auto;
+            box-shadow:
+                0 0 0 15px rgba(77, 148, 255, 0.2),
+                0 0 0 30px rgba(77, 148, 255, 0.12),
+                0 0 0 45px rgba(77, 148, 255, 0.06),
+                0 30px 80px rgba(0, 102, 255, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .service-circle-image:hover {
+            transform: scale(1.05);
+        }
+
+        .service-circle-image::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.25), transparent 65%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .service-circle-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .service-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: auto;
+        }
+
+        .service-label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            background: linear-gradient(135deg, var(--blue-light) 0%, var(--orange) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .service-content h3 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin: 0;
+            line-height: 1.3;
+            color: white;
+        }
+
+        .service-content p {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin: 0;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .service-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            background: transparent;
+            border: 1.5px solid rgba(255, 255, 255, 0.8);
+            border-radius: 24px;
+            color: white;
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            align-self: flex-start;
+            margin-top: 0.5rem;
+        }
+
+        .service-btn:hover {
+            background: white;
+            color: #0A1628;
+            border-color: white;
+        }
+
+        .service-features {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin: 1rem 0 0 0;
+            padding: 0;
+        }
+
+        .service-features li {
+            padding-left: 1.5rem;
+            position: relative;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .service-features li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            font-weight: 700;
+            color: rgba(77, 148, 255, 0.9);
+        }
+
+
+        /* Clients Section with curve */
+        .clients-section {
+            background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 50%, #FFFFFF 100%);
+            padding: 8rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .clients-section::before {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 102, 255, 0.05), transparent 70%);
+            top: 20%;
+            right: -100px;
+            pointer-events: none;
+        }
+
+        .clients-section::after {
+            content: '';
+            position: absolute;
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 107, 53, 0.04), transparent 70%);
+            bottom: 10%;
+            left: -100px;
+            pointer-events: none;
+        }
+
+        /* Floating decorative bubbles for clients section */
+        .clients-bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(77, 148, 255, 0.12), rgba(0, 102, 255, 0.04));
+            border: 2px solid rgba(77, 148, 255, 0.15);
+            pointer-events: none;
+            animation: float-bubble 10s ease-in-out infinite;
+        }
+
+        .clients-bubble-1 {
+            width: 100px;
+            height: 100px;
+            top: 15%;
+            left: 8%;
+            animation-delay: 0s;
+        }
+
+        .clients-bubble-2 {
+            width: 140px;
+            height: 140px;
+            top: 50%;
+            right: 5%;
+            animation-delay: 3s;
+        }
+
+        .clients-bubble-3 {
+            width: 80px;
+            height: 80px;
+            bottom: 20%;
+            left: 12%;
+            animation-delay: 6s;
+        }
+
+        .clients-bubble-4 {
+            width: 60px;
+            height: 60px;
+            top: 70%;
+            right: 15%;
+            animation-delay: 2s;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 107, 53, 0.1), rgba(255, 107, 53, 0.03));
+            border-color: rgba(255, 107, 53, 0.12);
+        }
+
+        .clients-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .clients-container .section-label {
+            display: inline-block;
+            padding: 0.5rem 1.25rem;
+            background: linear-gradient(135deg, rgba(0, 102, 255, 0.08), rgba(77, 148, 255, 0.05));
+            color: var(--blue);
+            font-size: 0.875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border-radius: 50px;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(0, 102, 255, 0.1);
+        }
+
+        .clients-container h3 {
+            font-size: 2.75rem;
+            font-weight: 700;
+            color: var(--black);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            position: relative;
+            padding-bottom: 1.5rem;
+        }
+
+        .clients-container h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 4px;
+            background: linear-gradient(90deg,
+                transparent 0%,
+                var(--blue-light) 25%,
+                var(--orange) 50%,
+                var(--blue-light) 75%,
+                transparent 100%);
+            border-radius: 2px;
+            animation: led-flow 3s ease-in-out infinite;
+        }
+
+        .clients-container p {
+            font-size: 1.125rem;
+            color: var(--gray-700);
+            margin-bottom: 4rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .clients-grid {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 4rem;
+            flex-wrap: wrap;
+            padding: 3rem 0;
+        }
+
+        .client-logo {
+            height: 60px;
+            filter: grayscale(0%);
+            opacity: 0.85;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            object-fit: contain;
+        }
+
+        .client-logo:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        /* CTA Section - Video Background with Wave */
+        .cta-section {
+            padding: 8rem 2rem;
+            position: relative;
+            overflow: visible;
+            margin-top: -6rem;
+            padding-top: 14rem;
+        }
+
+        .cta-video-bg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+            border-radius: 50% 50% 0 0 / 8% 8% 0 0;
+        }
+
+        .cta-video-bg video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.6) 100%);
+            z-index: 1;
+            pointer-events: none;
+            border-radius: 50% 50% 0 0 / 8% 8% 0 0;
+        }
+
+        .cta-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-container h2 {
+            font-size: 4rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .cta-container p {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .btn-white {
+            padding: 1rem 2rem;
+            background: white;
+            color: var(--blue);
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn-white:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-outline {
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: white;
+            border: 1.5px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Footer - Black */
+        footer {
+            background: var(--black);
+            padding: 5rem 2rem 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand h3 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand p {
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.7;
+            font-size: 0.9375rem;
+        }
+
+        .footer-links h4 {
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links a {
+            display: block;
+            padding: 0.5rem 0;
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            font-size: 0.9375rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--blue-light);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.875rem;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 1024px) {
+
+            .about-container {
+                perspective: 1500px;
+                padding: 4rem 1.5rem;
+            }
+
+            /* Notepad container */
+            .book-wrapper {
+                flex-direction: column;
+                gap: 0;
+                max-width: 500px;
+                margin: 0 auto;
+                padding: 0;
+                transform-style: preserve-3d;
+                position: relative;
+                background: transparent;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+                border-radius: 16px;
+            }
+
+            /* Top page with text */
+            .book-page-left {
+                width: 100%;
+                box-shadow: none;
+                transform: none !important;
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                margin: 0;
+                padding: 0;
+                order: 0;
+                border: 2px solid rgba(77, 148, 255, 0.3);
+                border-bottom: none;
+                border-radius: 16px 16px 0 0;
+            }
+
+            /* C-binding strip between pages */
+            .book-spine {
+                position: relative;
+                width: 100%;
+                height: 60px;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-evenly;
+                align-items: center;
+                background: linear-gradient(180deg,
+                    rgba(200, 210, 230, 0.6) 0%,
+                    rgba(180, 195, 220, 0.5) 50%,
+                    rgba(200, 210, 230, 0.6) 100%);
+                backdrop-filter: blur(15px);
+                -webkit-backdrop-filter: blur(15px);
+                z-index: 10;
+                order: 1;
+                padding: 0;
+                border-left: 2px solid rgba(77, 148, 255, 0.3);
+                border-right: 2px solid rgba(77, 148, 255, 0.3);
+                box-shadow:
+                    inset 0 2px 10px rgba(255, 255, 255, 0.3),
+                    0 5px 15px rgba(0, 0, 0, 0.08);
+            }
+
+            /* SVG C-ring container */
+            .ring-bind {
+                width: 50px;
+                height: 50px;
+                position: relative;
+                filter: drop-shadow(0 4px 8px rgba(0, 102, 255, 0.3));
+            }
+
+            .ring-bind::before,
+            .ring-bind::after {
+                display: none;
+            }
+
+            /* SVG styling for C-rings */
+            .ring-bind svg {
+                width: 100%;
+                height: 100%;
+                transform: translateZ(25px);
+            }
+
+            /* Connecting bar behind rings */
+            .book-spine::after {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 100%;
+                height: 8px;
+                background: linear-gradient(to bottom,
+                    rgba(160, 170, 190, 0.4),
+                    rgba(180, 195, 220, 0.5),
+                    rgba(160, 170, 190, 0.4));
+                border-radius: 4px;
+                z-index: -1;
+                box-shadow:
+                    inset 0 1px 3px rgba(0, 0, 0, 0.2),
+                    0 1px 2px rgba(255, 255, 255, 0.3);
+            }
+
+            /* Bottom page with image */
+            .book-page-right {
+                width: 100%;
+                box-shadow: none;
+                transform: none !important;
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                margin: 0;
+                padding: 0;
+                order: 2;
+                border: 2px solid rgba(77, 148, 255, 0.3);
+                border-top: none;
+                border-radius: 0 0 16px 16px;
+                overflow: hidden;
+            }
+
+            /* Text content on top page */
+            .about-content {
+                background: transparent;
+                border: none;
+                padding: 2.5rem 2rem;
+                box-shadow: none;
+                position: relative;
+            }
+
+            .about-content::before,
+            .about-content::after {
+                display: none;
+            }
+
+            /* Image on bottom page - fills entire page */
+            .about-visual {
+                background: transparent;
+                border: none;
+                padding: 0;
+                box-shadow: none;
+                display: flex;
+                width: 100%;
+                height: auto;
+                min-height: 600px;
+                overflow: hidden;
+                align-items: stretch;
+                justify-content: stretch;
+            }
+
+            .about-visual::before,
+            .about-visual::after {
+                display: none;
+            }
+
+            .about-visual .about-image-circle {
+                width: 100%;
+                max-width: 100%;
+                height: 600px;
+                min-height: 600px;
+                margin: 0;
+                border-radius: 0 0 14px 14px;
+                box-shadow: none;
+            }
+
+            .about-visual .about-image-circle img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+            }
+
+            .about-visual .bubble-float {
+                display: none;
+            }
+
+            .about-content h2 {
+                font-size: 2rem;
+                margin-top: 0;
+                margin-bottom: 1rem;
+                color: #0A1628;
+            }
+
+            .about-content p {
+                font-size: 1rem;
+                line-height: 1.8;
+                color: #2D3748;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .service-item {
+                grid-column: span 1 !important;
+                min-height: 350px;
+                padding: 2rem;
+            }
+
+            .service-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 2rem;
+            }
+
+            .service-content h3 {
+                font-size: 1.75rem;
+            }
+
+            .service-content p {
+                font-size: 0.95rem;
+            }
+
+            .service-features li {
+                font-size: 0.875rem;
+                padding: 0.6rem 0.8rem;
+                padding-left: 2rem;
+            }
+
+            .service-circle-image {
+                width: 100%;
+                max-width: 400px;
+                height: 400px;
+                margin: 0 auto;
+            }
+
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 3rem;
+            }
+
+            .hero-content h1 {
+                font-size: 3.5rem;
+            }
+
+            .about-content h2,
+            .services-header-section h2 {
+                font-size: 2.5rem;
+            }
+
+            .service-content h3 {
+                font-size: 2rem;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .clients-grid {
+                gap: 2.5rem;
+            }
+
+            .client-logo {
+                height: 50px;
+            }
+
+            .clients-container h3 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-description {
+                font-size: 1rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .btn-primary,
+            .btn-secondary {
+                width: 100%;
+                text-align: center;
+            }
+
+            .stats-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .stat-number {
+                font-size: 3rem;
+            }
+
+            .about-container {
+                padding: 1rem 1rem;
+            }
+
+            .about-content,
+            .about-visual {
+                padding: 1rem;
+            }
+
+            .about-content h2 {
+                font-size: 1.75rem;
+            }
+
+            .about-content p {
+                font-size: 0.95rem;
+            }
+
+            .about-visual img {
+                max-width: 350px;
+                max-height: 550px;
+            }
+
+            .services-header-section h2 {
+                font-size: 2rem;
+            }
+
+            .services-section {
+                padding: 4rem 1.5rem;
+            }
+
+            .service-item {
+                margin-bottom: 4rem;
+            }
+
+            .service-circle-image {
+                width: 100%;
+                height: 300px;
+            }
+
+            .service-content h3 {
+                font-size: 1.75rem;
+            }
+
+            .services-header h2 {
+                font-size: 2rem;
+            }
+
+            .cta-container h2 {
+                font-size: 2.5rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .btn-white,
+            .btn-outline {
+                width: 100%;
+            }
+
+            .clients-grid {
+                gap: 2rem;
+            }
+
+            .client-logo {
+                height: 40px;
+            }
+
+            .clients-container h3 {
+                font-size: 1.75rem;
+            }
+
+            .clients-container p {
+                font-size: 1rem;
+            }
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Fade in animation */
+        .fade-in {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav id="nav">
+        <div class="nav-container">
+            <div class="logo">
+                <span>OXYCURE</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#team">Team</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="nav-cta">Get Started</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <!-- Video Background -->
+        <div class="hero-video-bg">
+            <video autoplay muted loop playsinline poster="poster.png">
+                <source src="hero.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <div class="hero-container">
+            <div class="hero-content fade-in">
+                <h1>
+                    <span class="hero-gradient">Cure In Every Breath</span><br>
+                    & Heal Naturally
+                </h1>
+                <p class="hero-description">
+                    Pioneering hyperbaric and high-pressure treatment solutions, making sophisticated healthcare
+                    accessible through innovative diving industry expertise.
+                </p>
+                <div class="hero-buttons">
+                    <button class="btn-primary">Explore Services</button>
+                    <button class="btn-secondary">Learn More</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="bubble-decoration bubble-1"></div>
+        <div class="bubble-decoration bubble-2"></div>
+        <div class="bubble-decoration bubble-3"></div>
+        <div class="stats-container">
+            <div class="stat-item fade-in">
+                <div class="stat-number" data-count="350000">0</div>
+                <div class="stat-label">Offshore Man Hours</div>
+            </div>
+            <div class="stat-item fade-in">
+                <div class="stat-number" data-count="25">0</div>
+                <div class="stat-label">Years Experience</div>
+            </div>
+            <div class="stat-item fade-in">
+                <div class="stat-number" data-count="500">0</div>
+                <div class="stat-label">Successful Treatments</div>
+            </div>
+            <div class="stat-item fade-in">
+                <div class="stat-number" data-count="100">0</div>
+                <div class="stat-label">Healthcare Partners</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <div class="about-container">
+            <div class="book-wrapper">
+                <div class="book-page-left">
+                    <div class="about-content">
+                        <span class="section-label">About Us</span>
+                        <h2>Bringing <span class="highlight">Innovation</span> to Healthcare</h2>
+                        <p>Oxycure Technologies was established by a group of ex-life-minded professionals from the saturated
+                            diving industry. Driven by a shared vision to bring advanced medical treatments to the public,
+                            Oxycure was born.</p>
+                        <p>We have a team of knowledgeable, highly specialized medical professionals who provide expertise to
+                            hospitals and treatment centers while pioneering offshore therapeutic solutions, improving
+                            healthcare outcomes for a broader audience.</p>
+                    </div>
+                </div>
+
+                <div class="book-spine">
+                    <div class="ring-bind">
+                        <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="cRingGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:rgba(255,255,255,0.7);stop-opacity:1" />
+                                    <stop offset="50%" style="stop-color:rgba(100,180,255,0.5);stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:rgba(50,130,255,0.6);stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                            <path d="M 35 5 A 20 20 0 0 1 35 45"
+                                  fill="none"
+                                  stroke="url(#cRingGrad1)"
+                                  stroke-width="6"
+                                  stroke-linecap="round"
+                                  opacity="0.9"/>
+                            <path d="M 35 8 A 17 17 0 0 1 35 42"
+                                  fill="none"
+                                  stroke="rgba(255,255,255,0.6)"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                                  opacity="0.7"/>
+                        </svg>
+                    </div>
+                    <div class="ring-bind">
+                        <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M 35 5 A 20 20 0 0 1 35 45"
+                                  fill="none"
+                                  stroke="url(#cRingGrad1)"
+                                  stroke-width="6"
+                                  stroke-linecap="round"
+                                  opacity="0.9"/>
+                            <path d="M 35 8 A 17 17 0 0 1 35 42"
+                                  fill="none"
+                                  stroke="rgba(255,255,255,0.6)"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                                  opacity="0.7"/>
+                        </svg>
+                    </div>
+                    <div class="ring-bind">
+                        <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M 35 5 A 20 20 0 0 1 35 45"
+                                  fill="none"
+                                  stroke="url(#cRingGrad1)"
+                                  stroke-width="6"
+                                  stroke-linecap="round"
+                                  opacity="0.9"/>
+                            <path d="M 35 8 A 17 17 0 0 1 35 42"
+                                  fill="none"
+                                  stroke="rgba(255,255,255,0.6)"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                                  opacity="0.7"/>
+                        </svg>
+                    </div>
+                    <div class="ring-bind">
+                        <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M 35 5 A 20 20 0 0 1 35 45"
+                                  fill="none"
+                                  stroke="url(#cRingGrad1)"
+                                  stroke-width="6"
+                                  stroke-linecap="round"
+                                  opacity="0.9"/>
+                            <path d="M 35 8 A 17 17 0 0 1 35 42"
+                                  fill="none"
+                                  stroke="rgba(255,255,255,0.6)"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                                  opacity="0.7"/>
+                        </svg>
+                    </div>
+                    <div class="ring-bind">
+                        <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M 35 5 A 20 20 0 0 1 35 45"
+                                  fill="none"
+                                  stroke="url(#cRingGrad1)"
+                                  stroke-width="6"
+                                  stroke-linecap="round"
+                                  opacity="0.9"/>
+                            <path d="M 35 8 A 17 17 0 0 1 35 42"
+                                  fill="none"
+                                  stroke="rgba(255,255,255,0.6)"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                                  opacity="0.7"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="book-page-right">
+                    <div class="about-visual">
+                        <div class="bubble-float bubble-float-1"></div>
+                        <div class="bubble-float bubble-float-2"></div>
+                        <div class="bubble-float bubble-float-3"></div>
+                        <div class="about-image-circle">
+                            <img src="https://images.unsplash.com/photo-1631815588090-d4bfec5b1ccb?w=800&h=800&fit=crop&q=80"
+                                 alt="Medical Technology">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services-section" id="services">
+        <!-- Services Header -->
+        <div class="services-header fade-in">
+            <span class="section-label">Our Services</span>
+            <h2>Comprehensive <span class="highlight">Healthcare & Engineering</span></h2>
+            <p>From advanced medical facilities to subsea engineering, we deliver excellence across all domains with
+                decades of expertise.</p>
+        </div>
+
+        <div class="services-grid">
+            <!-- Service 1: Oxycure Polyclinic -->
+            <div class="service-item fade-in">
+                <div class="service-image-wrapper">
+                    <img src="oxycure.png"
+                        alt="Oxycure Polyclinic">
+                </div>
+                <div class="service-content">
+                    <span class="service-label">Healthcare</span>
+                    <h3>Oxycure Polyclinic</h3>
+                    <p>State-of-the-art healthcare facility committed to providing comprehensive healthcare tailored to your needs with innovation, quality and patient care.</p>
+                    <ul class="service-features">
+                        <li>Physiotherapy & Rehabilitation Services</li>
+                        <li>Advanced Laboratory Testing & Diagnostics</li>
+                        <li>Full-Service Pharmacy with Expert Consultation</li>
+                        <li>Audiology & Hearing Care Solutions</li>
+                        <li>Dialysis Treatment Center with Modern Equipment</li>
+                    </ul>
+                    <a href="#" class="service-btn">Learn more</a>
+                </div>
+            </div>
+
+            <!-- Service 2: HBOT Systems -->
+            <div class="service-item fade-in">
+                <div class="service-image-wrapper">
+                    <img src="service1.png"
+                        alt="HBOT Systems">
+                </div>
+                <div class="service-content">
+                    <span class="service-label">Medical Technology</span>
+                    <h3>HBOT Systems</h3>
+                    <p>Indigenously developed drawings & design for HBOT chamber as per AWS standards with Monoplace & Multiplace designs, PVHO standards compliance.</p>
+                    <ul class="service-features">
+                        <li>Hospital & Clinical HBOT Integration</li>
+                        <li>PVHO Standards Compliance & Certification</li>
+                        <li>Medical Gas Systems Design & Installation</li>
+                        <li>Environmental Control & Monitoring Systems</li>
+                        <li>Safety Systems & Emergency Protocols</li>
+                    </ul>
+                    <a href="#" class="service-btn">Learn more</a>
+                </div>
+            </div>
+
+            <!-- Service 3: Dive System Auditing -->
+            <div class="service-item fade-in">
+                <div class="service-image-wrapper">
+                    <img src="service2.png"
+                        alt="Dive System Auditing">
+                </div>
+                <div class="service-content">
+                    <span class="service-label">Marine Services</span>
+                    <h3>Dive System Auditing & Certifications</h3>
+                    <p>IMCA-trained Marine Contractors and expert dive system auditors for comprehensive ROV, dive system auditing, asset management and professional certification.</p>
+                    <ul class="service-features">
+                        <li>Comprehensive System Auditing & Inspection</li>
+                        <li>ROV Operations & Technical Support</li>
+                        <li>Bell System Certification & Maintenance</li>
+                        <li>Asset Management & Lifecycle Planning</li>
+                        <li>Training Programs & Professional Assessment</li>
+                    </ul>
+                    <a href="#" class="service-btn">Learn more</a>
+                </div>
+            </div>
+
+            <!-- Service 4: Subsea Engineering -->
+            <div class="service-item fade-in">
+                <div class="service-image-wrapper">
+                    <img src="service3.png"
+                        alt="Subsea Engineering">
+                </div>
+                <div class="service-content">
+                    <span class="service-label">Engineering</span>
+                    <h3>Subsea Engineering Solutions</h3>
+                    <p>Specialized in subsea engineering solutions for oil and gas trenching and support systems ensuring safe and efficient underwater operations.</p>
+                    <ul class="service-features">
+                        <li>Subsea Construction & Project Management</li>
+                        <li>Pipeline Installation & Trenching Services</li>
+                        <li>Underwater Inspection, Repair & Maintenance</li>
+                        <li>ROV Support & Intervention Services</li>
+                        <li>Marine Engineering Consulting & Solutions</li>
+                    </ul>
+                    <a href="#" class="service-btn">Learn more</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Clients Section -->
+    <section class="clients-section">
+        <div class="clients-bubble clients-bubble-1"></div>
+        <div class="clients-bubble clients-bubble-2"></div>
+        <div class="clients-bubble clients-bubble-3"></div>
+        <div class="clients-bubble clients-bubble-4"></div>
+        <div class="clients-container fade-in">
+            <span class="section-label">Our Partners</span>
+            <h3>Trusted By <span class="highlight">Industry Leaders</span></h3>
+            <p>Partnering with leading healthcare institutions and engineering firms worldwide to deliver excellence</p>
+            <div class="clients-grid">
+                <img class="client-logo" src="https://tse2.mm.bing.net/th/id/OIP.decK5nx3A-exAdpexe8o8AHaHa?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Shell">
+                <img class="client-logo" src="https://cdn.freebiesupply.com/images/large/2x/bp-logo-png-transparent.png" alt="BP">
+                <img class="client-logo" src="https://static.vecteezy.com/system/resources/previews/029/823/882/large_2x/chevron-logo-transparent-free-png.png" alt="Chevron">
+                <img class="client-logo" src="https://tse2.mm.bing.net/th/id/OIP.d-nfIL9Y1Kc916UGicMw7gHaFa?cb=12&w=960&h=702&rs=1&pid=ImgDetMain&o=7&rm=3" alt="TotalEnergies">
+                <img class="client-logo" src="https://companieslogo.com/img/orig/EQNR-ab4fcb91.png?t=1647980167" alt="Equinor">
+                <img class="client-logo" src="https://cdn.freebiesupply.com/logos/large/2x/siemens-logo-png-transparent.png" alt="Siemens">
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-video-bg">
+            <video autoplay muted loop playsinline poster="banner-poster.jpg">
+                <source src="banner.mp4" type="video/mp4">
+            </video>
+        </div>
+        <div class="cta-container">
+            <h2>Ready to <span class="highlight">transform</span> healthcare?</h2>
+            <p>Join us in pioneering the future of medical treatments and engineering solutions.</p>
+            <div class="cta-buttons">
+                <button class="btn-white">Get Started Today</button>
+                <button class="btn-outline">Contact Sales</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-brand">
+                <h3>OXYCURE</h3>
+                <p>Pioneering hyperbaric and high-pressure treatment solutions, making sophisticated healthcare
+                    accessible through innovative diving industry expertise.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="#">Polyclinic</a></li>
+                    <li><a href="#">HBOT Systems</a></li>
+                    <li><a href="#">Dive Auditing</a></li>
+                    <li><a href="#">Subsea Engineering</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Meet Our Team</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">News</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Oxycure Technologies. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        const nav = document.getElementById('nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // GSAP ScrollTrigger for fade-in animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Animate all fade-in elements
+        gsap.utils.toArray('.fade-in').forEach((element) => {
+            gsap.from(element, {
+                scrollTrigger: {
+                    trigger: element,
+                    start: 'top 85%',
+                    toggleActions: 'play none none reverse'
+                },
+                y: 50,
+                opacity: 0,
+                duration: 0.8,
+                ease: 'power3.out'
+            });
+        });
+
+        // Book opening animation for About section
+        ScrollTrigger.create({
+            trigger: '.about-section',
+            start: 'top 70%',
+            once: true,
+            onEnter: () => {
+                // Animate left page opening
+                gsap.fromTo('.book-page-left',
+                    { rotateY: -35, opacity: 0.5 },
+                    { rotateY: 0, opacity: 1, duration: 1.2, ease: 'power3.out' }
+                );
+
+                // Animate right page opening
+                gsap.fromTo('.book-page-right',
+                    { rotateY: 35, opacity: 0.5 },
+                    { rotateY: 0, opacity: 1, duration: 1.2, ease: 'power3.out' }
+                );
+            }
+        });
+
+        // Animated counter for stats
+        const counters = document.querySelectorAll('.stat-number');
+
+        counters.forEach(counter => {
+            const target = parseInt(counter.getAttribute('data-count'));
+
+            ScrollTrigger.create({
+                trigger: counter,
+                start: 'top 80%',
+                once: true,
+                onEnter: () => {
+                    let current = 0;
+                    const increment = target / 50;
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= target) {
+                            counter.textContent = target.toLocaleString() + '+';
+                            clearInterval(timer);
+                        } else {
+                            counter.textContent = Math.floor(current).toLocaleString();
+                        }
+                    }, 30);
+                }
+            });
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
