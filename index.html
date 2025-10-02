@@ -77,18 +77,14 @@
         }
 
         .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: white;
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
 
-        .logo span {
-            background: linear-gradient(135deg, var(--blue-light), var(--orange));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .logo img {
+            height: 40px;
+            width: auto;
         }
 
         .nav-links {
@@ -216,15 +212,41 @@
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             text-decoration: none;
             display: inline-block;
+            box-shadow: 0 0 30px rgba(0, 102, 255, 0.4),
+                        0 0 60px rgba(77, 148, 255, 0.2),
+                        inset 0 0 20px rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn-primary:hover::before {
+            width: 300px;
+            height: 300px;
         }
 
         .btn-primary:hover {
             background: var(--blue-dark);
             transform: translateY(-2px);
-            box-shadow: 0 12px 24px rgba(0, 102, 255, 0.3);
+            box-shadow: 0 0 40px rgba(0, 102, 255, 0.6),
+                        0 0 80px rgba(77, 148, 255, 0.3),
+                        0 12px 24px rgba(0, 102, 255, 0.4),
+                        inset 0 0 30px rgba(255, 255, 255, 0.15);
         }
 
         .btn-secondary {
@@ -1389,10 +1411,9 @@
             margin-bottom: 3rem;
         }
 
-        .footer-brand h3 {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: white;
+        .footer-brand img {
+            height: 50px;
+            width: auto;
             margin-bottom: 1rem;
         }
 
@@ -1683,6 +1704,16 @@
             .footer-container {
                 grid-template-columns: 1fr;
                 gap: 2rem;
+                text-align: center;
+            }
+
+            .footer-brand img {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .footer-links {
+                text-align: center;
             }
 
             .clients-grid {
@@ -1816,6 +1847,14 @@
         .fade-in {
             opacity: 1;
         }
+
+        /* Hero sequential reveal */
+        .hero-title,
+        .hero-description,
+        .hero-buttons {
+            opacity: 0;
+            transform: translateY(30px);
+        }
     </style>
 </head>
 
@@ -1824,7 +1863,7 @@
     <nav id="nav">
         <div class="nav-container">
             <div class="logo">
-                <span>OXYCURE</span>
+                <img src="logo.svg" alt="Oxycure">
             </div>
             <ul class="nav-links">
                 <li><a href="#about">About</a></li>
@@ -1846,8 +1885,8 @@
         </div>
 
         <div class="hero-container">
-            <div class="hero-content fade-in">
-                <h1>
+            <div class="hero-content">
+                <h1 class="hero-title">
                     <span class="hero-gradient">Cure In Every Breath</span><br>
                     & Heal Naturally
                 </h1>
@@ -2150,7 +2189,7 @@
     <footer>
         <div class="footer-container">
             <div class="footer-brand">
-                <h3>OXYCURE</h3>
+                <img src="logo.svg" alt="Oxycure">
                 <p>Pioneering hyperbaric and high-pressure treatment solutions, making sophisticated healthcare
                     accessible through innovative diving industry expertise.</p>
             </div>
@@ -2200,6 +2239,30 @@
 
         // GSAP ScrollTrigger for fade-in animations
         gsap.registerPlugin(ScrollTrigger);
+
+        // Hero section sequential reveal animation
+        const heroTimeline = gsap.timeline({
+            defaults: {
+                duration: 0.8,
+                ease: 'power3.out'
+            }
+        });
+
+        heroTimeline
+            .fromTo('.hero-title',
+                { opacity: 0, y: 30 },
+                { opacity: 1, y: 0, delay: 0.2 }
+            )
+            .fromTo('.hero-description',
+                { opacity: 0, y: 30 },
+                { opacity: 1, y: 0 },
+                '-=0.4'
+            )
+            .fromTo('.hero-buttons',
+                { opacity: 0, y: 30 },
+                { opacity: 1, y: 0 },
+                '-=0.4'
+            );
 
         // Animate all fade-in elements
         gsap.utils.toArray('.fade-in').forEach((element) => {
